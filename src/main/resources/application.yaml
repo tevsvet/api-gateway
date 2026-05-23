@@ -6,21 +6,23 @@ spring:
     name: api-gateway
   cloud:
     gateway:
-      discovery:
-        locator:
-          enabled: true
-          lower-case-service-id: true
-      routes:
-        - id: flow-manager-submit
-          uri: lb://flow-manager
-          predicates:
-            - Path=/api/v1/conversions
-            - Method=POST
-        - id: flow-manager-query
-          uri: lb://flow-manager
-          predicates:
-            - Path=/api/v1/conversions/**
-            - Method=GET
+      server:
+        webflux:
+          discovery:
+            locator:
+              enabled: true
+              lower-case-service-id: true
+          routes:
+            - id: flow-manager-submit
+              uri: lb://flow-manager
+              predicates:
+                - Path=/api/v1/conversions
+                - Method=POST
+            - id: flow-manager-query
+              uri: lb://flow-manager
+              predicates:
+                - Path=/api/v1/conversions/**
+                - Method=GET
 
 eureka:
   client:
